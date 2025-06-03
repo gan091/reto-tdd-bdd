@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.example.dao.ITaskDAO;
-import co.com.example.entities.Task;
+import co.com.example.repository.ITaskRepository;
+import co.com.example.model.Task;
 
 @Service
 public class TaskServiceImpl implements ITaskService{
 	@Autowired
-	private ITaskDAO dao;
+	private ITaskRepository dao;
 
 	@Override
 	@Transactional

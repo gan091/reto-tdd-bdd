@@ -1,4 +1,4 @@
-package co.com.example.entities;
+package co.com.example.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,11 @@ public class Task {
 	private String description;
 	
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private Boolean completed = false;
+	private Boolean completed = false;	
+
+	public Task() {
+		super();
+	}
 
 	public int getId() {
 		return id;
@@ -57,5 +61,4 @@ public class Task {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
-
 }
