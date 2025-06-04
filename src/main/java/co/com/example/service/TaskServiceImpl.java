@@ -23,6 +23,6 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	@Transactional(readOnly = true)
 	public List<Task> findAll() {
-		return (List<Task>)dao.findAll();
+		return dao.findAll();
 	}
 }

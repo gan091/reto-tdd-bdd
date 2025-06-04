@@ -28,7 +28,7 @@ public class TaskController {
 			return ResponseEntity.badRequest().build();
 		}
 		Task taskSave = servicio.save(task);
-		return ResponseEntity.ok(taskSave);	
+		return ResponseEntity.status(201).body(taskSave);
 	}
 	
 	@GetMapping("/listTask")

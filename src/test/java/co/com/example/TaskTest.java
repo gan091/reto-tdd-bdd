@@ -1,29 +1,28 @@
 package co.com.example;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import co.com.example.model.Task;
-
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class TaskTest {
+	String title = "Revisión de correos";
+	String description = "Revisar los correos electrónicos pendientes";
 
 	@Test
-	void validarInstanciaTask() {
-		String titulo = "";
-		String descripcion = "Validar los correos que aun no se han leido";
-		
-		Task task = new Task();
-		task.setTitle(titulo);
-		task.setDescription(descripcion);
-		
-		assertAll("Validacion de instancia",
-				() -> assertNotNull(task, "Instancia no nula"),
-				() -> assertNotNull(task.getTitle(), "El titulo no debe ser nulo"),
-				() -> assertNotNull(task.getDescription(), "La descripcion no debe ser nula")
-				);		
+	void validateTitleParameter() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> new Task("", description));
+		assertEquals("El campo title es obligatorio y no puede estar vacío", exception.getMessage());
 	}
 
+	@Test
+	void validateDescriptionParameter() {
+		Exception exception = assertThrows(IllegalArgumentException.class, () -> new Task(title,""));
+		assertEquals("El campo description es obligatorio y no puede estar vacío", exception.getMessage());
+	}
+
+	@Test
+	void validateCompletedParameter() {
+		Task task = new Task(title, description);
+		assertFalse(task.getCompleted());
+	}
 }

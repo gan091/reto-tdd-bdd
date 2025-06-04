@@ -7,9 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
+import lombok.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tasks")
+@Builder(toBuilder = true)
 public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,41 +29,16 @@ public class Task {
 	private String description;
 	
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-	private Boolean completed = false;	
+	private Boolean completed = false;
 
-	public Task() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
+	public Task(String title, String description) {
+		if (title == null || title.isBlank()) {
+			throw new IllegalArgumentException("El campo title es obligatorio y no puede estar vacío");
+		}
+		if (description == null || description.isBlank()) {
+			throw new IllegalArgumentException("El campo description es obligatorio y no puede estar vacío");
+		}
 		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public boolean isCompleted() {
-		return completed;
-	}
-
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
 	}
 }
